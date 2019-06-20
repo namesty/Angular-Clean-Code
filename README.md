@@ -1,4 +1,4 @@
-#Angular Clean Code
+# Angular Clean Code
 
 A small web application that consumes Foundation29 API. Destined to showcase clean Angular code using:
 
@@ -12,6 +12,6 @@ A small web application that consumes Foundation29 API. Destined to showcase cle
 
 Use Yarn package manager.
 
-##Author
+## Author
 
 Néstor Amesty, Venezuela 2019.
