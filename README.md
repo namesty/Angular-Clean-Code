@@ -8,6 +8,10 @@ A small web application that consumes Foundation29 API. Destined to showcase cle
 - Auth Guards
 - Services
 
+## Installing depedencies
+
+Use Yarn package manager.
+
 ##Author
 
 Néstor Amesty, Venezuela 2019.
