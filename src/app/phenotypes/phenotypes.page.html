@@ -1,0 +1,29 @@
+<ion-header>
+	<ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+	<div class="container">
+		<div padding class="title-row">
+			<h1>Mis pacientes y sus fenotipos</h1>
+		</div>
+		<ion-list>
+			<span *ngFor="let patient of patients">
+				<ion-item *ngIf="patient.patientName">
+					<div>
+						<h3>{{patient.patientName}} {{patient.surname}}</h3>
+						<ion-chip *ngFor="let phenotype of patient.phenotype.data">
+							<p>{{phenotype.name}}</p>
+						</ion-chip>
+					</div>
+				</ion-item>
+			</span>
+		</ion-list>
+		<div align="center" *ngIf="loading">
+			<ion-spinner color="dark"></ion-spinner>
+		</div>
+	</div>
+</ion-content>

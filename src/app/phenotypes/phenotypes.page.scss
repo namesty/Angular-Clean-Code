@@ -1,0 +1,27 @@
+:host {
+    .title-row{
+        border-bottom: solid 1px black;
+        width: 90%;
+    }
+
+    ion-content {
+		--background: rgb(240,240,240);
+		--ion-padding: 30px;
+    }
+    h3{
+        color: #75787D;
+    }
+
+    .container{
+        color: #75787D;
+        margin: 30px auto auto auto;
+		width: calc(100% - 60px);
+		--background: $white-color;
+		background: white;
+		box-shadow: 0 0 10px 1px rgba(128, 128, 128, 0.6);
+		border-radius: 4px;
+        overflow: hidden;
+        padding: 30px;
+    }
+    
+}

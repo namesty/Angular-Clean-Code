@@ -1,0 +1,227 @@
+<ion-header>
+	<ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="gray-background" padding>
+	<ion-grid>
+		<form (ngSubmit)="onSubmit()" [formGroup]="patientForm" class="form">
+			<ion-row>
+				<ion-col>
+					<h2>Nuevo Paciente</h2>
+					<p>Los campos marcados con * son obligatorios</p>
+				</ion-col>
+			</ion-row>
+			<ion-row class="title-row">
+				<ion-col size="12">
+					<h2>Datos básicos</h2>
+				</ion-col>
+			</ion-row>
+			<ion-row>
+				<ion-col size="12">
+					<ion-item>
+						<ion-label for="patientName" position="floating">* Nombre</ion-label>
+						<ion-input class="form-control" formControlName="patientName" maxlength="50"></ion-input>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.patientName.valid  && (formFields.patientName.touched || submitted)"
+							  lines="none">
+						<div class="error-message" *ngIf="formFields.patientName.errors.required">Nombre requerido</div>
+					</div>
+				</ion-col>
+
+				<ion-col size="12">
+					<ion-item>
+						<ion-label for="surname" position="floating">* Apellido</ion-label>
+						<ion-input class="form-control" formControlName="surname" maxlength="50"></ion-input>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.surname.valid  && (formFields.surname.touched || submitted)"
+							  lines="none">
+						<div class="error-message" *ngIf="formFields.surname.errors.required">Apellido requerido</div>
+					</div>
+				</ion-col>
+
+				<ion-col size="12">
+					<ion-item>
+						<ion-label for="gender" position="floating">* Género</ion-label>
+						<ion-select class="form-control" formControlName="gender">
+							<ion-select-option value="male">Hombre</ion-select-option>
+							<ion-select-option value="female">Mujer</ion-select-option>
+						</ion-select>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.gender.valid  && submitted" lines="none">
+						<div class="error-message" *ngIf="formFields.gender.errors.required">Género requerido</div>
+					</div>
+				</ion-col>
+			</ion-row>
+
+			<ion-row class="title-row">
+				<ion-col size="12">
+					<h2>Fecha y lugar de nacimiento</h2>
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label for="birthdate" position="floating">* Fecha de nacimiento</ion-label>
+						<ion-datetime [max]="this.today" class="form-control" displayFormat="DD/MM/YYYY"
+									  formControlName="birthdate" min="1910"></ion-datetime>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.birthdate.valid  && submitted" lines="none">
+						<div class="error-message" *ngIf="formFields.birthdate.errors.required">Fecha de nacimiento requerido</div>
+					</div>
+				</ion-col>
+
+				<ion-col>
+					<ion-item>
+						<ion-label for="citybirth" position="floating">* Ciudad de nacimiento</ion-label>
+						<ion-input class="form-control" formControlName="citybirth" maxlength="50"></ion-input>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.citybirth.valid  && (formFields.citybirth.touched || submitted)"
+							  lines="none">
+						<div class="error-message" *ngIf="formFields.citybirth.errors.required">Ciudad de nacimiento requerido</div>
+					</div>
+				</ion-col>
+
+			</ion-row>
+			<ion-row>
+				<ion-col size="6">
+					<ion-item>
+						<ion-label position="floating">* País de nacimiento</ion-label>
+						<ion-select (ionChange)="getBirthProvinces(formFields.countrybirth.value)" class="form-control"
+									formControlName="countrybirth">
+							<ion-select-option *ngFor="let country of countries; "
+											   [value]="country">{{country.name}}</ion-select-option>
+						</ion-select>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.countrybirth.valid  && submitted" lines="none">
+						<div class="error-message" *ngIf="formFields.countrybirth.errors.required">País de nacimiento requerido
+						</div>
+					</div>
+				</ion-col>
+
+				<ion-col>
+					<ion-item>
+						<ion-label position="floating">Provincia de nacimiento</ion-label>
+						<ion-select class="form-control" formControlName="provincebirth">
+							<ion-select-option *ngFor="let province of birthProvinces; let i = index" [selected]="i==0"
+											   [value]="province">{{province.name}}</ion-select-option>
+						</ion-select>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.provincebirth.valid  && submitted" lines="none">
+						<div class="error-message" *ngIf="formFields.provincebirth.errors.required">Provincia de nacimiento requerida
+						</div>
+					</div>
+				</ion-col>
+
+			</ion-row>
+
+			<ion-row class="title-row">
+				<ion-col size="12">
+					<h2>Lugar actual de residencia</h2>
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label position="floating">Calle</ion-label>
+						<ion-input class="form-control" formControlName="street" maxlength="100"></ion-input>
+					</ion-item>
+				</ion-col>
+
+				<ion-col>
+					<ion-item>
+						<ion-label position="floating">Código postal</ion-label>
+						<ion-input class="form-control" formControlName="postalCode" maxlength="5"></ion-input>
+					</ion-item>
+				</ion-col>
+
+			</ion-row>
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label position="floating">* Ciudad</ion-label>
+						<ion-input class="form-control" formControlName="city" maxlength="50"></ion-input>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.city.valid  && (formFields.city.touched || submitted)" lines="none">
+						<div class="error-message" *ngIf="formFields.city.errors.required">Ciudad requerida</div>
+					</div>
+				</ion-col>
+
+			</ion-row>
+			<ion-row>
+				<ion-col size="6">
+					<ion-item>
+						<ion-label position="floating">* País</ion-label>
+						<ion-select (ionChange)="getProvinces(formFields.country.value)" class="form-control"
+									formControlName="country">
+							<ion-select-option *ngFor="let country of countries"
+											   [value]="country">{{country.name}}</ion-select-option>
+						</ion-select>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.country.valid  && submitted" lines="none">
+						<div class="error-message" *ngIf="formFields.country.errors.required">País requerido</div>
+					</div>
+				</ion-col>
+
+				<ion-col>
+					<ion-item>
+						<ion-label position="floating">* Provincia</ion-label>
+						<ion-select class="form-control" formControlName="province">
+							<ion-select-option *ngFor="let province of provinces; let i = index" [selected]="i==0"
+											   [value]="province">{{province.name}}</ion-select-option>
+						</ion-select>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.province.valid && submitted" lines="none">
+						<div class="error-message" *ngIf="formFields.province.errors.required">Provincia requerida</div>
+					</div>
+				</ion-col>
+
+			</ion-row>
+
+			<ion-row class="title-row">
+				<ion-col size="12">
+					<h2>Números de teléfono</h2>
+				</ion-col>
+			</ion-row>
+
+			<ion-row>
+				<ion-col>
+					<ion-item>
+						<ion-label position="floating">* Teléfono 1</ion-label>
+						<ion-input class="form-control" formControlName="phone1" maxlength="15"></ion-input>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.phone1.valid  && (formFields.phone1.touched || submitted)"
+							  lines="none">
+						<div class="error-message" *ngIf="formFields.phone1.errors.required">Teléfono 1 requerido</div>
+						<div class="error-message" *ngIf="formFields.phone1.errors.pattern">Formato de teléfono inválido</div>
+					</div>
+				</ion-col>
+
+				<ion-col>
+					<ion-item>
+						<ion-label position="floating">* Teléfono 2</ion-label>
+						<ion-input class="form-control" formControlName="phone2" maxlength="15"></ion-input>
+					</ion-item>
+					<div class="error-container" *ngIf="!formFields.phone2.valid  && (formFields.phone2.touched || submitted)"
+							  lines="none">
+						<div class="error-message" *ngIf="formFields.phone2.errors.required">Teléfono 2 requerido</div>
+						<div class="error-message" *ngIf="formFields.phone2.errors.pattern">Formato de teléfono inválido</div>
+					</div>
+				</ion-col>
+			</ion-row>
+			<div padding>
+				<ion-button *ngIf="!loading" [disabled]="loading" size="large" type="submit">Guardar</ion-button>
+				<div align="center" *ngIf="loading">
+						<ion-spinner color="dark"></ion-spinner>
+				</div>
+			</div>
+		</form>
+
+	</ion-grid>
+
+
+</ion-content>

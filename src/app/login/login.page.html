@@ -1,0 +1,46 @@
+<ion-content>
+	<ion-grid>
+		<ion-row justify-content-center>
+			<ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+				<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="form">
+					<div text-center>
+						<h1>INICIAR SESIÓN</h1>
+					</div>
+					<div padding>
+						<ion-item>
+							<ion-label position="floating" for="email">Correo eléctronico</ion-label>
+							<ion-input formControlName="email" class="form-control"></ion-input>
+						</ion-item>
+						<div class="error-container" *ngIf="!formFields.email.valid  && (formFields.email.touched || submitted)">
+							<div class="error-message" *ngIf="formFields.email.errors.required">*Correo requerido
+							</div>
+							<div class="error-message" *ngIf="formFields.email.errors.email">*Formato de correo inválido
+							</div>
+						</div>
+
+						<ion-item>
+							<ion-label position="floating" for="password">Contraseña</ion-label>
+							<ion-input formControlName="password" type="password" class="form-control"></ion-input>
+						</ion-item>
+
+						<div class="error-container" *ngIf="!formFields.password.valid  && (formFields.password.touched || submitted)">
+							<div class="error-message" *ngIf="formFields.password.errors.required">*Contraseña requerida
+							</div>
+						</div>
+					</div>
+
+					<div padding *ngIf="!loading" class="loginButton">
+						<ion-button size="large" type="submit" expand="block">Iniciar sesión</ion-button>
+					</div>
+					<div padding *ngIf="!loading" class="createUser">
+						<a routerLink="/register" class="whiteText"><h4>Crear usuario</h4></a>
+					</div>
+					<div align="center" *ngIf="loading">
+						<ion-spinner color="light"></ion-spinner>
+					</div>
+				</form>
+			</ion-col>
+		</ion-row>
+
+	</ion-grid>
+</ion-content>

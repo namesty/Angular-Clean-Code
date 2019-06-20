@@ -1,0 +1,77 @@
+<ion-content>
+	<ion-grid>
+		<ion-row justify-content-center>
+			<ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+				<div text-center>
+					<h1> CREAR USUARIO </h1>
+				</div>
+				<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+					<div padding>
+						<ion-item>
+							<ion-label position="floating" for="email">Nombre de usuario</ion-label>
+							<ion-input formControlName="userName" type="text"></ion-input>
+						</ion-item>
+						<div class="error-container" *ngIf="!formFields.userName.valid  && (formFields.userName.touched || submitted)">
+							<div class="error-message" *ngIf="formFields.userName.errors.required">Nombre de usuario requerido</div>
+							<div class="error-message" *ngIf="formFields.userName.errors.pattern">No puede contener espacios</div>
+						</div>
+
+						<ion-item>
+							<ion-label position="floating" for="email">Correo electrónico</ion-label>
+							<ion-input formControlName="email" type="text"></ion-input>
+						</ion-item>
+						<div class="error-container" *ngIf="!formFields.email.valid  && (formFields.email.touched || submitted)">
+							<div class="error-message" *ngIf="formFields.email.errors.required">Correo electrónico requerido</div>
+							<div class="error-message" *ngIf="formFields.email.errors.email">Formato inválido</div>
+						</div>
+
+						<ion-item>
+							<ion-label position="floating" for="repeatEmail">Confirme su correo electrónico</ion-label>
+							<ion-input formControlName="repeatEmail" type="text"></ion-input>
+						</ion-item>
+						<div class="error-container"
+								*ngIf="this.registerForm.errors  && (formFields.repeatEmail.touched || submitted)">
+							<div class="error-message" *ngIf="this.registerForm.errors.repeatEmail">Los correos deben coincidir</div>
+						</div>
+
+						<ion-item>
+							<ion-label position="floating" for="password">Contraseña</ion-label>
+							<ion-input formControlName="password" type="password" maxlength="16"></ion-input>
+						</ion-item>
+						<div class="error-container" *ngIf="!formFields.password.valid  && (formFields.password.touched || submitted)">
+							<div  class="error-message" *ngIf="formFields.password.errors.required">Contraseña requerida</div>
+							<div class="error-message"
+									*ngIf="formFields.password.errors.minlength || formFields.password.errors.maxlength">
+								Contraseña debe tener entre 8 y 16 caracteres
+							</div>
+							<div class="error-message" *ngIf="formFields.password.errors.pattern">Contraseña debe tener al menos una
+								letra y un número
+							</div>
+						</div>
+
+						<ion-item>
+							<ion-label position="floating" for="repeatPassword">Confirme su contraseña</ion-label>
+							<ion-input formControlName="repeatPassword" type="password"></ion-input>
+						</ion-item>
+						<div class="error-container"
+								*ngIf="this.registerForm.errors  && (formFields.repeatPassword.touched || submitted)">
+							<div class="error-message" *ngIf="this.registerForm.errors.repeatPassword">Las contraseñas deben coincidir</div>
+						</div>
+					</div>
+				
+					<div padding *ngIf="!loading">
+							<ion-button size="large" type="submit" [disabled]="loading" expand="block">Confirmar
+							</ion-button>
+						</div>
+			
+					<div padding *ngIf="!loading" class="createUser">
+						<a routerLink="/login" class="whiteText"><h4>Iniciar sesión</h4></a>
+					</div>
+					<div align="center" *ngIf="loading">
+						<ion-spinner color="light"></ion-spinner>
+					</div>
+				</form>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

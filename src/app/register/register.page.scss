@@ -1,0 +1,48 @@
+:host {
+
+	$white-color: #fff;
+	$height100: 100%;
+
+	ion-grid {
+		width: 100%;
+		height: $height100;
+		background: rgb(230, 16, 60);
+		background: linear-gradient(45deg, rgba(230, 16, 60, 1) 0%, rgba(213, 50, 50, 1) 35%, rgba(236, 105, 105, 1) 100%);
+	}
+
+	.whiteText{
+		color: #fff;
+		text-decoration: none;
+	}
+
+	ion-row {
+		height: $height100;
+	}
+
+	ion-col {
+		background: #37474F;
+	}
+
+	ion-button {
+		font-weight: 300;
+	}
+
+	h1 {
+		color: $white-color;
+	}
+
+	.error-message {
+		background-color: transparent !important;
+	}
+
+	.error-container {
+		margin: 10px 0 20px 0;
+		color: rgb(236, 104, 104);
+	}
+
+	@media (min-width: 240px) and (max-width: 768px) {
+		ion-col {
+			background: transparent
+		}
+	}
+}
